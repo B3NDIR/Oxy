@@ -1,6 +1,6 @@
--- Oxy UI Library (Rayfield-like starter)
+-- Oxy UI Library (Rayfield-like starter + Close Button)
 -- Autor: Ty :)
--- Wystarczy wrzucić do GitHub i ładować przez loadstring()
+-- Wrzucasz do GitHub i ładujesz przez loadstring()
 
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
@@ -49,6 +49,26 @@ function Oxy:CreateWindow(opts)
         create("UICorner",{CornerRadius=UDim.new(0,12)}),
         create("UIStroke",{Color=theme.Stroke,Thickness=1})
     })
+
+    -- === Przycisk zamykania (X) ===
+    local closeBtn = create("TextButton", {
+        Text = "X",
+        AnchorPoint = Vector2.new(1,0),
+        Position = UDim2.new(1,-8,0,8),
+        Size = UDim2.fromOffset(28,28),
+        BackgroundColor3 = theme.Accent,
+        TextColor3 = Color3.new(1,1,1),
+        Font = Enum.Font.GothamBold,
+        TextSize = 14,
+        Parent = root
+    }, {
+        create("UICorner",{CornerRadius=UDim.new(0,6)}),
+        create("UIStroke",{Color=theme.Stroke,Thickness=1})
+    })
+
+    closeBtn.MouseButton1Click:Connect(function()
+        gui:Destroy()
+    end)
 
     -- Sidebar
     local sidebar = create("Frame", {
@@ -121,9 +141,7 @@ function Oxy:CreateWindow(opts)
             tween(btn,{BackgroundColor3=theme.Accent},0.15)
         end)
 
-        -- === Komponenty ===
-
-        -- Button
+        -- === Button
         function tab:AddButton(opts)
             local b = create("TextButton", {
                 Text=opts.Text,
@@ -145,7 +163,7 @@ function Oxy:CreateWindow(opts)
             return b
         end
 
-        -- Toggle
+        -- === Toggle
         function tab:AddToggle(opts)
             local state = opts.Default or false
             local holder = create("Frame", {
