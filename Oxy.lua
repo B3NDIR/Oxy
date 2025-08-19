@@ -1,16 +1,16 @@
--- Rayfield-like UI Library (Starter)
--- Wrzuć ten plik jako ModuleScript i zrób require() lub hostuj na GitHub i użyj loadstring()
+-- Oxy UI Library (Rayfield-like starter)
+-- Autor: Ty :)
+-- Wystarczy wrzucić do GitHub i ładować przez loadstring()
 
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
-local UserInputService = game:GetService("UserInputService")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
-local Library = {}
-Library.__index = Library
+local Oxy = {}
+Oxy.__index = Oxy
 
--- ================= Helpers =================
+-- Helpers
 local function create(class, props, children)
     local inst = Instance.new(class)
     for k,v in pairs(props or {}) do inst[k] = v end
@@ -18,8 +18,8 @@ local function create(class, props, children)
     return inst
 end
 
-local function tween(inst, props, time)
-    TweenService:Create(inst, TweenInfo.new(time or 0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), props):Play()
+local function tween(obj, props, time)
+    TweenService:Create(obj, TweenInfo.new(time or 0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), props):Play()
 end
 
 local Themes = {
@@ -32,8 +32,8 @@ local Themes = {
     }
 }
 
--- ================= Library Core =================
-function Library:CreateWindow(opts)
+-- Główne okno
+function Oxy:CreateWindow(opts)
     opts = opts or {}
     local theme = Themes[opts.Theme or "Dark"]
 
@@ -81,8 +81,9 @@ function Library:CreateWindow(opts)
         _theme = theme,
         _tabs = {},
         _content = content
-    }, Library)
+    }, Oxy)
 
+    -- Funkcja dodająca zakładki
     function self:AddTab(name)
         local btn = create("TextButton", {
             Text=name,
@@ -109,7 +110,7 @@ function Library:CreateWindow(opts)
             create("UIPadding",{PaddingTop=UDim.new(0,8),PaddingLeft=UDim.new(0,8),PaddingRight=UDim.new(0,8)})
         })
 
-        local tab = {Button=btn,Frame=frame,Components={}}
+        local tab = {Button=btn,Frame=frame}
 
         btn.MouseButton1Click:Connect(function()
             for _,t in ipairs(self._tabs) do
@@ -120,7 +121,9 @@ function Library:CreateWindow(opts)
             tween(btn,{BackgroundColor3=theme.Accent},0.15)
         end)
 
-        -- Components
+        -- === Komponenty ===
+
+        -- Button
         function tab:AddButton(opts)
             local b = create("TextButton", {
                 Text=opts.Text,
@@ -142,6 +145,7 @@ function Library:CreateWindow(opts)
             return b
         end
 
+        -- Toggle
         function tab:AddToggle(opts)
             local state = opts.Default or false
             local holder = create("Frame", {
@@ -200,4 +204,4 @@ function Library:CreateWindow(opts)
     return self
 end
 
-return Library
+return Oxy
