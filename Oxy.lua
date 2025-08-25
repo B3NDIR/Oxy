@@ -26,11 +26,8 @@ function OxyLibrary:CreateWindow(config)
     MainFrame.BorderSizePixel = 0
     MainFrame.Parent = ScreenGui
 
-    local UICorner = Instance.new("UICorner", MainFrame)
-    UICorner.CornerRadius = UDim.new(0, 10)
-
     local TitleBar = Instance.new("TextLabel")
-    TitleBar.Size = UDim2.new(1, 0, 0, 30)
+    TitleBar.Size = UDim2.new(1, 0, 0, 0)
     TitleBar.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     TitleBar.Text = title
     TitleBar.TextColor3 = Color3.fromRGB(255, 255, 255)
