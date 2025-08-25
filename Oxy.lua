@@ -19,7 +19,7 @@ function OxyLibrary:CreateWindow(config)
     ScreenGui.Parent = game:GetService("CoreGui")
 
     local MainFrame = Instance.new("Frame")
-    MainFrame.Size = size
+    MainFrame.Size = UDim2.new(0, 400, 0, 600)
     MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
     MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
     MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
