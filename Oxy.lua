@@ -10,7 +10,6 @@ OxyLibrary.Windows = {}
 -- tworzenie okna na środku ekranu
 function OxyLibrary:CreateWindow(config)
     local title = config.Title or "Oxy Window"
-    local size = config.Size or UDim2.new(0, 400, 0, 250)
 
     -- główne GUI
     local ScreenGui = Instance.new("ScreenGui")
